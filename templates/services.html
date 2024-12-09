@@ -1,0 +1,97 @@
+{% extends 'starter-page.html' %}
+{% load static %}
+
+{% block body %}
+
+    <!-- Services Section -->
+    <section id="services" class="services section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Services</h2>
+        <p>What we do offer</p>
+      </div><!-- End Section Title -->
+
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="service-item  position-relative">
+              <div class="icon">
+                
+              </div>
+              <a href="{% url 'subject_documents' %}" class="stretched-link">
+                <h3>Access to Past Exam Papers</h3>
+              </a>
+              <p>Gain instant access to a vast repository of past exam papers from different subjects and academic levels. Whether you're preparing for high school, college, or university exams, our collection has you covered.</p>
+            </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="service-item position-relative">
+              <div class="icon">
+                
+              </div>
+              <a href="{% url 'service_details' %}" class="stretched-link">
+                <h3>AI-Powered Document Analysis</h3>
+              </a>
+              <p>Utilize our cutting-edge AI technology to analyze your documents. Our AI can generate practice questions, summaries, and key insights from your study materials, helping you prepare more efficiently.</p>
+            </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="service-item position-relative">
+              <div class="icon">
+                
+              </div>
+              <a href="{% url 'service_details' %}" class="stretched-link">
+                <h3>Personalized Study Plans</h3>
+              </a>
+              <p>Get personalized study plans tailored to your needs. Our platform assesses your strengths and weaknesses, creating a customized plan to help you focus on areas that need improvement.</p>
+            </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+            <div class="service-item position-relative">
+              <div class="icon">
+                
+              </div>
+              <a href="{% url 'service_details' %}" class="stretched-link">
+                <h3>Community Support</h3>
+              </a>
+              <p>Join a vibrant community of learners and educators. Share resources, exchange tips, and collaborate with peers to enhance your learning experience. Our forums and discussion boards are perfect for connecting with others who share your academic goals.</p>
+            </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+            <div class="service-item position-relative">
+              <div class="icon">
+                
+              </div>
+              <a href="{% url 'service_details' %}" class="stretched-link">
+                <h3>Expert Tutoring</h3>
+              </a>
+              <p>Access expert tutoring services for additional support. Our experienced tutors are available to provide one-on-one assistance, answer your questions, and guide you through complex topics.</p>
+            </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
+            <div class="service-item position-relative">
+              <div class="icon">
+                
+              </div>
+              <a href="{% url 'service_details' %}" class="stretched-link">
+                <h3>Interactive Learning Tools</h3>
+              </a>
+              <p>Engage with interactive learning tools that make studying more enjoyable and effective. From quizzes and flashcards to video tutorials, our platform offers a variety of resources to suit different learning styles.</p>
+            </div>
+          </div><!-- End Service Item -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Services Section -->
+
+{% endblock %}

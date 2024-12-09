@@ -1,0 +1,44 @@
+{% extends 'starter-page.html' %}
+{% load static %}
+
+{% block body %}
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+
+    <!-- About Section -->
+    <section id="about" class="about section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>About</h2>
+        <p>Who we are</p>
+      </div><!-- End Section Title -->
+
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
+            <p>
+              Welcome to Tiger Tutors Hub, your premier destination for accessing past exam papers effortlessly. Our platform is dedicated to providing students with a comprehensive and easy-to-navigate repository of past papers across various subjects and academic levels.
+            </p>
+            <ul>
+                <h3>Our commitment</h3>
+              <li><i class="bi bi-check2-circle"></i> <span>Quality Resources.</span></li>
+              <li><i class="bi bi-check2-circle"></i> <span>User-Friendly Interface.</span></li>
+              <li><i class="bi bi-check2-circle"></i> <span>Community Support</span></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+            <p>At Tiger Tutors Hub, we understand the importance of having the right study materials, and our mission is to empower students by making these resources readily accessible. We believe that every student deserves the opportunity to excel academically, and our extensive collection of past papers is designed to help you achieve just that. </p>
+            <a href="{% url 'more' %}" class="read-more"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section><!-- /About Section -->
+
+{% endblock %}

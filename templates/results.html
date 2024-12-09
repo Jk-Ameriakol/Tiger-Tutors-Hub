@@ -1,0 +1,12 @@
+{% extends 'starter-page.html' %}
+{% load static %}
+{% block body %}
+	<body>
+    <h1>Generated Questions</h1>
+    <pre>{{ questions }}</pre>
+    <h2>View Document</h2>
+    <iframe src="{{ file_url }}" width="100%" height="600px"></iframe>
+    <a href="{% url 'upload_document' %}">Upload another document</a>
+</body>
+
+{% endblock %}

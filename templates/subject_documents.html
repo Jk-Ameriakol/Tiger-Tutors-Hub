@@ -1,0 +1,101 @@
+{% extends 'starter-page.html' %}
+{% load static %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Subject Documents</title>
+    <!-- Including Bootstrap CSS from CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Subject Documents</h2>
+        <div class="accordion" id="documentsAccordion">
+            <div class="card">
+                <div class="card-header" id="headingMath">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseMath" aria-expanded="true" aria-controls="collapseMath">
+                            Mathematics
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseMath" class="collapse show" aria-labelledby="headingMath" data-parent="#documentsAccordion">
+                    <div class="card-body">
+                        <ul class="list-group">
+                            {% for doc in math_docs %}
+                            <li class="list-group-item">
+                                <a href="{% url 'view_pdf' 'mathematics' doc.id %}">
+                                    <img src="{{ doc.image.url }}" alt="{{ doc.title }}" style="width: 50px; height: 50px; margin-right: 10px;">
+                                    <strong>{{ doc.title }}</strong>
+                                    <p>{{ doc.description }}</p>
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header" id="headingPhysics">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapsePhysics" aria-expanded="false" aria-controls="collapsePhysics">
+                            Physics
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapsePhysics" class="collapse" aria-labelledby="headingPhysics" data-parent="#documentsAccordion">
+                    <div class="card-body">
+                        <ul class="list-group">
+                            {% for doc in physics_docs %}
+                            <li class="list-group-item">
+                                <a href="{% url 'view_pdf' 'physics' doc.id %}">
+                                    <img src="{{ doc.image.url }}" alt="{{ doc.title }}" style="width: 50px; height: 50px; margin-right: 10px;">
+                                    <strong>{{ doc.title }}</strong>
+                                    <p>{{ doc.description }}</p>
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header" id="headingComputer">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseComputer" aria-expanded="false" aria-controls="collapseComputer">
+                            Computer
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseComputer" class="collapse" aria-labelledby="headingComputer" data-parent="#documentsAccordion">
+                    <div class="card-body">
+                        <ul class="list-group">
+                            {% for doc in computer_docs %}
+                            <li class="list-group-item">
+                                <a href="{% url 'view_pdf' 'computer' doc.id %}">
+                                    <img src="{{ doc.image.url }}" alt="{{ doc.title }}" style="width: 50px; height: 50px; margin-right: 10px;">
+                                    <strong>{{ doc.title }}</strong>
+                                    <p>{{ doc.description }}</p>
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br><br>
+    
+
+    <!-- Including jQuery and Bootstrap JS from CDN -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+{% endblock %}

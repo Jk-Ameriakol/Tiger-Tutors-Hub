@@ -1,0 +1,18 @@
+{% extends 'starter-page.html' %}
+{% load static %}
+{% block body %}
+	
+    
+<body>
+    <div class="container mt-5">
+        <h2>Upload Document</h2>
+        <form method="POST" enctype="multipart/form-data" action="{% url 'upload_document' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+    </div>
+
+</body>
+
+{% endblock %}

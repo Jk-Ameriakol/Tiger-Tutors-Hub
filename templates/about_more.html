@@ -1,0 +1,58 @@
+{% extends 'starter-page.html' %}
+{% load static %}
+
+{% block body %}
+
+    <!-- About Section -->
+    <section id="about" class="about section">
+    
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
+              <h3>Our Vision</h3>
+            <p>
+                To bridge the gap between students and essential educational resources, making quality study materials accessible to everyone, everywhere.
+                At Tiger Tutors Hub, we are committed to supporting your educational journey and helping you unlock your full potential. Join us today and take the first step towards achieving academic excellence.
+            </p>
+          </div>
+            
+          <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
+              <h3>Our Mission</h3>
+            <p>
+                Our mission is to support students in their academic journeys by making high-quality, relevant, and up-to-date past papers readily accessible. By doing so, we help students practice effectively, understand examination patterns, and improve their performance.
+            </p>
+          </div>
+            
+          <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
+              <h3>Why Choose Tiger Tutors Hub</h3>
+            <p>
+                <strong>Comprehensive Coverage:</strong> Our database includes past papers from a wide range of subjects, providing comprehensive coverage for students across different fields of study.
+            </p>
+              
+            <p>
+               <strong>Quality and Accuracy:</strong> We meticulously curate and update our collection to ensure the highest quality and accuracy of the materials, helping you stay up-to-date with the latest examination trends and formats.
+            </p>
+              
+            <p>
+                <strong>Commitment to Excellence:</strong> We are dedicated to your academic success and continuously strive to enhance our platform to meet your evolving needs. Our commitment to excellence ensures that you have the best resources at your fingertips.
+            </p>
+          </div>
+
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+              <h3>Join Us Today</h3>
+            <p>
+                Take control of your academic future with Tiger Tutors Hub. Explore our extensive collection of past exam papers, utilize our AI-powered tools, and engage with a community of like-minded learners. Start preparing for success and unlock your full potential with Tiger Tutors Hub.
+                Together, let's make studying smarter, more efficient, and infinitely rewarding. 
+            </p>
+            <a href="{% url 'membership' %}" class="read-more"><span>Join Us</span><i class="bi bi-arrow-right"></i></a>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section><!-- /About Section -->
+
+{% endblock %}
