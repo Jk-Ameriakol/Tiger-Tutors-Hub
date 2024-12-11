@@ -2,85 +2,105 @@
 {% load static %}
 
 {% block body %}
-    
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact section">
+<!-- Contact Section -->
+<section id="contact" class="contact section">
 
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Contact</h2>
-        <p>Contact Us</p>
-      </div><!-- End Section Title -->
+  <!-- Section Title -->
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Contact</h2>
+    <p>Contact Us</p>
+  </div><!-- End Section Title -->
 
-      <div class="container" data-aos="fade" data-aos-delay="100">
+  <div class="container" data-aos="fade" data-aos-delay="100">
 
-        <div class="row gy-4">
+    <div class="row gy-4">
 
-          <div class="col-lg-4">
-            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
-              <i class="bi bi-geo-alt flex-shrink-0"></i>
-              <div>
-                <h3>Address</h3>
-                <p>A1 Road Africana Streets, Lodwar, LD 30500</p>
-              </div>
-            </div><!-- End Info Item -->
-
-            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
-              <i class="bi bi-telephone flex-shrink-0"></i>
-              <div>
-                <h3>Call Us</h3>
-                <p>+2547 9356 2144</p>
-              </div>
-            </div><!-- End Info Item -->
-
-            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
-              <i class="bi bi-envelope flex-shrink-0"></i>
-              <div>
-                <h3>Email Us</h3>
-                <p>ameriakolkadon@gmail.com</p>
-              </div>
-            </div><!-- End Info Item -->
-
+      <div class="col-lg-4">
+        <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
+          <i class="bi bi-geo-alt flex-shrink-0"></i>
+          <div>
+            <h3>Address</h3>
+            <p>A1 Road Tom Mboya Streets, Nairobi, NB 00100</p>
           </div>
+        </div><!-- End Info Item -->
 
-          <div class="col-lg-8">
-            <form method="POST" action="{% url 'contact' %}" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
-              {% csrf_token %}
-                
-              <div class="row gy-4">
+        <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
+          <i class="bi bi-telephone flex-shrink-0"></i>
+          <div>
+            <h3>Call Us</h3>
+            <p>+2547 9356 2144</p>
+          </div>
+        </div><!-- End Info Item -->
 
-                <div class="col-md-6">
-                  <input type="text" name="name" id="name" class="form-control" placeholder="Your Name" required="">
-                </div>
-
-                <div class="col-md-6 ">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required="">
-                </div>
-
-                <div class="col-md-12">
-                  <input type="text" class="form-control" name="subject" id="email" placeholder="Subject" required="">
-                </div>
-
-                <div class="col-md-12">
-                  <textarea type="text" class="form-control" name="message" id="message" rows="6" placeholder="Message" required=""></textarea>
-                </div>
-
-                <div class="col-md-12 text-center">
-                  <div class="loading">Loading...</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Message sent successfully. Thank you!</div>
-
-                  <button type="submit">Send Message</button>
-                </div>
-
-              </div>
-            </form>
-          </div><!-- End Contact Form -->
-
-        </div>
+        <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
+          <i class="bi bi-envelope flex-shrink-0"></i>
+          <div>
+            <h3>Email Us</h3>
+            <p>tigertutors@gmail.com</p>
+          </div>
+        </div><!-- End Info Item -->
 
       </div>
 
-    </section><!-- /Contact Section -->
+      <div class="col-lg-8">
+        <form id="contact-form" method="POST" action="{% url 'contact' %}" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+          {% csrf_token %}
+
+          <div class="row gy-4">
+
+            <div class="col-md-6">
+              <input type="text" name="name" id="name" class="form-control" placeholder="Your Name" required="">
+            </div>
+
+            <div class="col-md-6 ">
+              <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required="">
+            </div>
+
+            <div class="col-md-12">
+              <input type="text" class="form-control" name="subject" id="email" placeholder="Subject" required="">
+            </div>
+
+            <div class="col-md-12">
+              <textarea type="text" class="form-control" name="message" id="message" rows="6" placeholder="Message" required=""></textarea>
+            </div>
+
+            <div class="col-md-12 text-center">
+              <div class="loading" style="display:none;">Loading...</div>
+              <div class="error-message"></div>
+              <div class="sent-message" style="display:none;">Message sent successfully. Thank you!</div>
+
+              <button type="submit">Send Message</button>
+            </div>
+
+          </div>
+        </form>
+      </div><!-- End Contact Form -->
+
+    </div>
+
+  </div>
+
+</section><!-- /Contact Section -->
+
+<script>
+document.getElementById('contact-form').addEventListener('submit', function(event) {
+  event.preventDefault();
+  document.querySelector('.loading').style.display = 'block';
+
+  setTimeout(function() {
+    document.querySelector('.loading').style.display = 'none';
+    document.querySelector('.sent-message').style.display = 'block';
+    
+    // Perform the form submission
+    event.target.submit();
+
+    // Clear the form
+    setTimeout(function() {
+      document.querySelector('.sent-message').style.display = 'none';
+    }, 2000); // Hide message after 2 seconds
+  }, 2000); // Simulate 2 seconds of loading
+});
+</script>
+
 {% endblock %}

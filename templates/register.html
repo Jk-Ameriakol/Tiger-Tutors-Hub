@@ -79,15 +79,16 @@
                   <div class="form-check d-flex justify-content-center mb-5">
                     <input class="form-check-input me-2" style="background-color: orange" type="checkbox" value="" id="" required="required" />
                     <label class="form-check-label " for="">
-                      I agree all statements in <a href="#">T&C</a>
+                      I agree all statements in <a href="{% url 'terms' %}">T&C</a>
                     </label>
                   </div>
 
                   <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                     <button  type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-lg " style="background-color: orange">Register</button>
                   </div>
-
-                    <a href="{% url 'login' %}" class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">Already have an account? Log in</a>
+                    <p class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                        Already have an account?&nbsp;<a href="{% url 'login' %}" > Log in</a>
+                    </p>
 
                 </form>
 

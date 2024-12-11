@@ -20,25 +20,43 @@ class Contact(models.Model):
     def __str__(self):
         return self.name
 
-class Member(models.Model):
-    name = models.CharField(max_length=50)
-    username = models.CharField(
-        max_length=15,
-        unique = True,
+from django.db import models
+from django.contrib.auth.models import AbstractUser
+
+class Member(AbstractUser):
+    phone = models.CharField(max_length=20, blank=True, null=True)
+    address = models.CharField(max_length=255, blank=True, null=True)
+    image = models.ImageField(upload_to='members/', blank=True, null=True)
+
+    def __str__(self):
+        return self.username
+
+
+
+    def __str__(self):
+        return self.username
+
+
+    groups = models.ManyToManyField(
+        'auth.Group',
+        related_name='member_set',  # Custom related name
+        blank=True,
+        help_text='The groups this user belongs to.',
+        verbose_name='groups',
     )
-    password = models.CharField(
-        max_length=8,
-        unique = True,
-        null = False,
-        blank = False,
-        default = '',
-        editable = False,
-        error_messages = {'unique': 'Username already exists', 'wrong': 'Wrong password'},
-        help_text = 'Required. 8 characters or fewer. Letters, digits and @/./+/-/_ only.'
+    user_permissions = models.ManyToManyField(
+        'auth.Permission',
+        related_name='member_permission_set',  # Custom related name
+        blank=True,
+        help_text='Specific permissions for this user.',
+        verbose_name='user permissions',
     )
 
     def __str__(self):
-        return self.name
+        return self.username
+
+
+
 
 class Admin(models.Model):
     name = models.CharField(max_length=50)
@@ -102,7 +120,15 @@ class Document(models.Model):
 class TeamMember(models.Model):
     name = models.CharField(max_length=100)
     role = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='team/')
+    image = models.ImageField(upload_to='team/', blank=True, null=True)
+    twitter = models.URLField(max_length=200, blank=True, null=True)  # 'X' formerly known as 'Twitter'
+    facebook = models.URLField(max_length=200, blank=True, null=True)
+    instagram = models.URLField(max_length=200, blank=True, null=True)
+    linkedin = models.URLField(max_length=200, blank=True, null=True)
 
     def __str__(self):
         return self.name
+
+
+
+

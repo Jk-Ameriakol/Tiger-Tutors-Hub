@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Discover, Document, TeamMember
+from .models import Discover, Document, TeamMember, Contact
 
 
 class DiscoverUploadForm(forms.ModelForm):
@@ -30,5 +30,43 @@ class DocumentForm(forms.ModelForm):
 class TeamMemberForm(forms.ModelForm):
     class Meta:
         model = TeamMember
-        fields = ['name', 'role', 'image']
+        fields = ['name', 'role', 'image', 'facebook', 'twitter', 'instagram', 'linkedin']
+
+
+
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = Contact
+        fields = ['name', 'email', 'subject', 'message']
+
+
+from django import forms
+from .models import Member
+
+class UserRegistrationForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput)
+
+    class Meta:
+        model = Member
+        fields = ['username', 'password']
+
+from django import forms
+from .models import Member
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Member
+        fields = ['image', 'first_name', 'last_name', 'email', 'phone', 'address']
+
+    def __init__(self, *args, **kwargs):
+        super(ProfileUpdateForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control'})
+            if field_name == 'image':
+                field.widget.attrs.update({'class': 'form-control-file'})
+
+
+
+
+
 

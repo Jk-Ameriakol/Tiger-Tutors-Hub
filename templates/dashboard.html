@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            background-color: #f9f9f9; /* Light background */
+            color: #343a40; /* Dark text */
+        }
+        .navbar {
+            background-color: #007bff; /* Blue background */
+        }
+        .navbar-brand, .navbar-nav .nav-link {
+            color: #ffffff;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #dcdcdc;
+        }
+        .card {
+            margin-bottom: 20px;
+            border: none;
+            background-color: #ffffff; /* White card background */
+        }
+        .card-header {
+            background-color: #007bff; /* Blue card header */
+            color: #ffffff; /* White text for header */
+        }
+        .section-title {
+            color: #007bff; /* Blue section titles */
+            margin-top: 20px;
+            text-transform: uppercase;
+        }
+        .btn-custom {
+            background-color: #007bff; /* Blue button */
+            color: #ffffff;
+        }
+        .btn-custom:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+            color: #ffffff;
+        }
+        .btn-outline-dark a,
+        .btn-outline-primary a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .btn-outline-dark:hover,
+        .btn-outline-primary:hover {
+            background-color: #007bff; /* Blue background on hover */
+            color: white;
+        }
+        .btn-outline-dark:hover a,
+        .btn-outline-primary:hover a {
+            color: white;
+        }
+        .card-icon {
+            font-size: 3rem;
+            color: #007bff; /* Blue icons */
+        }
+        .card-summary {
+            display: flex;
+            align-items: center;
+        }
+        .card-summary-text {
+            margin-left: 20px;
+        }
+        .text-center {
+            margin-bottom: 40px; /* Add space below title */
+        }
+        .fixed-size-card {
+            height: 150px;
+        }
+        .feature-section {
+            background-color: #ffffff;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">Admin Dashboard</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contact_list' %}">Contacts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'team_list' %}">Team Members</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'subject_documents' %}">Documents</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'landing' %}">Discover</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h1 class="text-center text-uppercase">Admin Dashboard</h1>
+
+        <!-- Dashboard Summary -->
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card shadow-lg fixed-size-card">
+                    <div class="card-body card-summary">
+                        <i class="fas fa-address-book card-icon"></i>
+                        <div class="card-summary-text">
+                            <h5>Contacts</h5>
+                            <p>Manage contacts</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card shadow-lg fixed-size-card">
+                    <div class="card-body card-summary">
+                        <i class="fas fa-users card-icon"></i>
+                        <div class="card-summary-text">
+                            <h5>Team Members</h5>
+                            <p>Manage team members</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card shadow-lg fixed-size-card">
+                    <div class="card-body card-summary">
+                        <i class="fas fa-file-alt card-icon"></i>
+                        <div class="card-summary-text">
+                            <h5>Documents</h5>
+                            <p>Manage documents</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card shadow-lg fixed-size-card">
+                    <div class="card-body card-summary">
+                        <i class="fas fa-compass card-icon"></i>
+                        <div class="card-summary-text">
+                            <h5>Discover</h5>
+                            <p>Manage discover items</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contacts Section -->
+        <div class="section-title">
+            <h2>Contacts</h2>
+        </div>
+        <div class="card shadow-lg">
+            <div class="card-header d-flex justify-content-between">
+                <button class="btn btn-custom"><a href="{% url 'contact' %}" class="text-white">Upload Contact</a></button>
+                <button class="btn btn-outline-primary"><a href="{% url 'contact_list' %}" class="text-primary">View Contacts</a></button>
+            </div>
+        </div>
+
+        <!-- Team Section -->
+        <div class="section-title">
+            <h2>Team Members</h2>
+        </div>
+        <div class="card shadow-lg">
+            <div class="card-header d-flex justify-content-between">
+                <button class="btn btn-custom"><a href="{% url 'team_upload' %}" class="text-white">Upload Team Member</a></button>
+                <button class="btn btn-outline-primary"><a href="{% url 'contact_list' %}" class="text-primary">View Contacts</a></button>
+            </div>
+        </div>
+    </div>

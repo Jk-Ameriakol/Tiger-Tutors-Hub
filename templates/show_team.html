@@ -1,0 +1,55 @@
+{% extends 'starter-page.html' %}
+{% load static %}
+
+{% block body %}
+
+<!-- Team Section -->
+<section id="team" class="team section">
+
+  <!-- Section Title -->
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Team</h2>
+    <p>Our Hardworking Team</p>
+  </div><!-- End Section Title -->
+
+  <div class="container">
+
+    <div class="row gy-4">
+      {% for member in team_members %}
+        <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+          <div class="team-member">
+            <div class="member-img">
+              <img src="{{ member.image.url }}" class="img-fluid" alt="">
+              <div class="social">
+                {% if member.twitter %}
+                  <a href="{{ member.twitter }}" target="_blank"><i class="bi bi-twitter-x"></i></a>
+                {% endif %}
+                {% if member.facebook %}
+                  <a href="{{ member.facebook }}" target="_blank"><i class="bi bi-facebook"></i></a>
+                {% endif %}
+                {% if member.instagram %}
+                  <a href="{{ member.instagram }}" target="_blank"><i class="bi bi-instagram"></i></a>
+                {% endif %}
+                {% if member.linkedin %}
+                  <a href="{{ member.linkedin }}" target="_blank"><i class="bi bi-linkedin"></i></a>
+                {% endif %}
+              </div>
+            </div>
+            <div class="member-info">
+              <h4>{{ member.name }}</h4>
+              <span>{{ member.role }}</span>
+              <div class="mt-2">
+                <a href="{% url 'edit_team_member' member.pk %}" class="btn btn-warning btn-sm">Edit</a>
+                <a href="{% url 'delete_team_member' member.pk %}" class="btn btn-danger btn-sm">Delete</a>
+              </div>
+            </div>
+          </div>
+        </div><!-- End Team Member -->
+      {% endfor %}
+    </div>
+
+  </div>
+
+</section><!-- /Team Section -->
+
+{% endblock %}

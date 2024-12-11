@@ -40,14 +40,14 @@
   ======================================================== -->
 </head>
 
-<body class="starter-page-page">
+<body class="landing-page-page">
 
   <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
 
       <a href="index.html" class="logo d-flex align-items-center">
         <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.png" alt=""> -->
+        <!-- <img src="admin/img/logo.png" alt=""> -->
         <h1 class="sitename">TigerHub</h1>
       </a>
 
@@ -74,71 +74,76 @@
           </div>
         </div><!-- End Page Title -->
           
-      <!-- Testimonials Section -->
-    <section id="testimonials" class=" container testimonials section">
+     <!-- Discover Section -->
+<section id="discover" class="container discover section">
 
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
         <h2>Discover</h2>
         <p>Check out our new products</p>
-      </div><!-- End Section Title -->
+    </div><!-- End Section Title -->
 
-      <div  data-aos="fade-up" data-aos-delay="100">
+    <div data-aos="fade-up" data-aos-delay="100">
 
-        <div class="swiper init-swiper">
-          <script type="application/json" class="swiper-config">
-            {
-              "loop": true,
-              "speed": 600,
-              "autoplay": {
-                "delay": 5000
-              },
-              "slidesPerView": "auto",
-              "pagination": {
-                "el": ".swiper-pagination",
-                "type": "bullets",
-                "clickable": true
-              },
-              "breakpoints": {
-                "320": {
-                  "slidesPerView": 1,
-                  "spaceBetween": 10
-                },
-                "1200": {
-                  "slidesPerView": 3,
-                  "spaceBetween": 5
-                }
-              }
-            }
-          </script>
-          <div class="swiper-wrapper">
-
-            {% for image in images %}
-              <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="{{ image.image.url }}" class="d-block w-100" alt="{{ image.title }}">
-                <h3>{{ image.title }}</h3>
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>{{ image.description }}</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-              </div>
-            </div><!-- End product item -->
-            	
-            {% endfor %}
-            
-              
-          </div>
-          <div class="swiper-pagination"></div>
+        <div id="discoveryCarousel" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                {% for image in images %}
+                    <li data-target="#discoveryCarousel" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
+                {% endfor %}
+            </ol>
+            <div class="carousel-inner">
+                {% for image in images %}
+                {% if forloop.first %}<div class="carousel-item active">{% else %}<div class="carousel-item">{% endif %}
+                    <div class="row">
+                        {% for subimage in images|slice:"3" %}
+                        <div class="col-md-4">
+                            <img src="{{ subimage.image.url }}" class="d-block w-100" style="height: 200px;" alt="{{ subimage.title }}">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h3>{{ subimage.title }}</h3>
+                                <p>{{ subimage.description }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div><!-- End product item -->
+                {% endfor %}
+            </div>
+            <a class="carousel-control-prev" href="#discoveryCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#discoveryCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
         </div>
 
-      </div>
+    </div>
+    </div>
 
-    </section><!-- /Testimonials Section -->
+</section><!-- /Discover Section -->
+
+<!-- Including Bootstrap CSS and JS for the Carousel -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Including Bootstrap CSS and JS for the Carousel -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<style>
+    a {
+        color: orangered !important; /* Set your desired link color and use !important to override Bootstrap */
+    }
+    a:hover {
+        color: darkorange !important; /* Optional: Change color on hover */
+    }
+</style>
+
 
 
   </main>
@@ -146,7 +151,7 @@
   <footer id="footer" class="footer dark-background">
     <div class="container">
       <h3 class="sitename">TigerTutorsHub</h3>
-      <p>Et aut eum quis fuga eos sunt ipsa nihil. Labore corporis magni eligendi fuga maxime saepe commodi placeat.</p>
+      <p>"Tiger Tutors Hub: Roaring to Unleash Your Academic Potential"</p>
       <div class="social-links d-flex justify-content-center">
         <a href=""><i class="bi bi-twitter-x"></i></a>
         <a href=""><i class="bi bi-facebook"></i></a>
@@ -190,67 +195,4 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

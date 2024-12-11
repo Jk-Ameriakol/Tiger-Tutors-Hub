@@ -3,70 +3,185 @@
 
 {% block body %}
     <br><br>
-<head>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Include PDF.js library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
-    <style>
-        #pdf-viewer {
-            width: 100%;
-            height: 100%;
-            border: 1px solid #ccc;
-        }
-        .pdf-canvas {
-            width: 100%;
-            height: 100%;
-        }
-    </style>
-</head>
-<body>
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <head>
+        <!-- Bootstrap CSS -->
+        <!-- Include PDF.js library -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
+        <!-- Including Font Awesome for icons -->
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+        <style>
+            #pdf-viewer-container {
+                border: 1px solid #ccc;
+                height: 80vh;
+                overflow-y: auto;
+                position: relative;
+                margin-top: 20px;
+            }
+            .pdf-canvas {
+                width: 100%;
+            }
+            .pdf-toolbar {
+                position: sticky;
+                top: 0;
+                background-color: #f8f9fa;
+                z-index: 10;
+                padding: 10px;
+                border-bottom: 1px solid #ccc;
+                box-shadow: 0 2px 2px -2px gray;
+            }
+            .pdf-toolbar button, .pdf-toolbar a {
+                margin-right: 5px;
+            }
+            h1 {
+                font-family: 'Times New Roman', Times, serif;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Bootstrap JS and dependencies -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <div class="container mt-5">
-        <h1 class="text-center">{{ document_name }}</h1>
-        <canvas id="pdf-viewer" class="pdf-canvas"></canvas>
-    </div>
+        <div class="container mt-5">
+            <h1 class="text-center">{{ document_name }}</h1>
 
-    <script>
-        var url = "{{ file_path }}";
+            <div class="pdf-toolbar text-right">
+                <button id="prev-page" class="btn btn-primary btn-sm">Previous</button>
+                <button id="next-page" class="btn btn-primary btn-sm">Next</button>
+                <span class="mr-3">Page: <span id="page-num"></span> / <span id="page-count"></span></span>
+                <button id="zoom-in" class="btn btn-secondary btn-sm">
+                    <i class="fas fa-search-plus"></i>
+                </button>
+                <button id="zoom-out" class="btn btn-secondary btn-sm">
+                    <i class="fas fa-search-minus"></i>
+                </button>
+                <button id="print" class="btn btn-info btn-sm">Print</button>
+                <a href="{{ file_path }}" download class="btn btn-success btn-sm">Download</a>
+                <button id="share" class="btn btn-warning btn-sm">Share</button>
+            </div>
 
-        // Asynchronous download of PDF
-        var loadingTask = pdfjsLib.getDocument(url);
-        loadingTask.promise.then(function(pdf) {
-            console.log('PDF loaded');
+            <div id="pdf-viewer-container">
+                <canvas id="pdf-viewer" class="pdf-canvas"></canvas>
+            </div>
+        </div>
 
-            // Fetch the first page
-            var pageNumber = 1;
-            pdf.getPage(pageNumber).then(function(page) {
-                console.log('Page loaded');
+        <script>
+            var url = "{{ file_path }}";
+            var pdfDoc = null,
+                pageNum = 1,
+                pageRendering = false,
+                pageNumPending = null,
+                scale = 1.5,
+                canvas = document.getElementById('pdf-viewer'),
+                ctx = canvas.getContext('2d');
 
-                var scale = 1.5;
-                var viewport = page.getViewport({ scale: scale });
+            function renderPage(num) {
+                pageRendering = true;
+                pdfDoc.getPage(num).then(function(page) {
+                    var viewport = page.getViewport({ scale: scale });
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
 
-                // Prepare canvas using PDF page dimensions
-                var canvas = document.getElementById('pdf-viewer');
-                var context = canvas.getContext('2d');
-                canvas.height = viewport.height;
-                canvas.width = viewport.width;
+                    var renderContext = {
+                        canvasContext: ctx,
+                        viewport: viewport
+                    };
+                    var renderTask = page.render(renderContext);
+                    renderTask.promise.then(function() {
+                        // Add Diagonal Watermark
+                        ctx.font = "30px Arial";
+                        ctx.fillStyle = "rgba(150, 150, 150, 0.5)";
+                        ctx.textAlign = "center";
+                        ctx.save();
+                        ctx.translate(canvas.width / 2, canvas.height / 2);
+                        ctx.rotate(-Math.PI / 4);
+                        ctx.fillText("TigerTutorsHub", 0, 0);
+                        ctx.restore();
 
-                // Render PDF page into canvas context
-                var renderContext = {
-                    canvasContext: context,
-                    viewport: viewport
-                };
-                var renderTask = page.render(renderContext);
-                renderTask.promise.then(function() {
-                    console.log('Page rendered');
+                        pageRendering = false;
+                        if (pageNumPending !== null) {
+                            renderPage(pageNumPending);
+                            pageNumPending = null;
+                        }
+                    });
                 });
+
+                document.getElementById('page-num').textContent = num;
+            }
+
+            function queueRenderPage(num) {
+                if (pageRendering) {
+                    pageNumPending = num;
+                } else {
+                    renderPage(num);
+                }
+            }
+
+            function onPrevPage() {
+                if (pageNum <= 1) {
+                    return;
+                }
+                pageNum--;
+                queueRenderPage(pageNum);
+            }
+
+            document.getElementById('prev-page').addEventListener('click', onPrevPage);
+
+            function onNextPage() {
+                if (pageNum >= pdfDoc.numPages) {
+                    return;
+                }
+                pageNum++;
+                queueRenderPage(pageNum);
+            }
+
+            document.getElementById('next-page').addEventListener('click', onNextPage);
+
+            function onZoomIn() {
+                scale += 0.1;
+                queueRenderPage(pageNum);
+            }
+
+            document.getElementById('zoom-in').addEventListener('click', onZoomIn);
+
+            function onZoomOut() {
+                if (scale <= 0.5) return; 
+                scale -= 0.1;
+                queueRenderPage(pageNum);
+            }
+
+            document.getElementById('zoom-out').addEventListener('click', onZoomOut);
+
+            function onPrint() {
+                window.print();
+            }
+
+            document.getElementById('print').addEventListener('click', onPrint);
+
+            function onShare() {
+                if (navigator.share) {
+                    navigator.share({
+                        title: '{{ document_name }}',
+                        text: 'Check out this document from TigerTutorsHub!',
+                        url: window.location.href
+                    }).then(() => {
+                        console.log('Successful share');
+                    }).catch((error) => {
+                        console.log('Error sharing', error);
+                    });
+                } else {
+                    alert('Web Share API not supported in your browser.');
+                }
+            }
+
+            document.getElementById('share').addEventListener('click', onShare);
+
+            pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
+                pdfDoc = pdfDoc_;
+                document.getElementById('page-count').textContent = pdfDoc.numPages;
+                renderPage(pageNum);
             });
-        }, function(reason) {
-            // PDF loading error
-            console.error(reason);
-        });
-    </script>
-</body>
+        </script>
+    </body>
 {% endblock %}
