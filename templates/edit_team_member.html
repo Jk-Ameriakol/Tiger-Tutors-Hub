@@ -1,49 +1,73 @@
-{% extends 'starter-page.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block body %}
-<div class="container mt-5">
-    <div class="card">
-        <div class="card-header text-white text-center" style="background-color: grey;">
-            <h2>Edit Team Member</h2>
-        </div>
-        <div class="card-body">
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="form-group mb-3">
-                    {{ form.name.label_tag }}  <!-- Optional: Add label tag for field name -->
-                    {{ form.name }}
+<div class="container-fluid mt-5 mb-5">
+    <h2 class="text-center">Edit Team Member</h2>
+    <div class="card-body">
+        <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.name.id_for_label }}" class="font-weight-bold">{{ form.name.label }}</label>
+                {{ form.name }}
+                {{ form.name.errors }}
+                <div class="invalid-feedback">
+                    Please provide a valid {{ form.name.label }}.
                 </div>
-                <div class="form-group mb-3">
-                    {{ form.role.label_tag }}  <!-- Optional: Add label tag for field role -->
-                    {{ form.role }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.role.id_for_label }}" class="font-weight-bold">{{ form.role.label }}</label>
+                {{ form.role }}
+                {{ form.role.errors }}
+                <div class="invalid-feedback">
+                    Please provide a valid {{ form.role.label }}.
                 </div>
-                <div class="form-group mb-3">
-                    {{ form.image.label_tag }}  <!-- Optional: Add label tag for field image -->
-                    {{ form.image }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.image.id_for_label }}" class="font-weight-bold">{{ form.image.label }}</label>
+                {{ form.image }}
+                {{ form.image.errors }}
+                <div class="invalid-feedback">
+                    Please provide a valid {{ form.image.label }}.
                 </div>
-                <div class="form-group mb-3">
-                    {{ form.facebook.label_tag }}  <!-- Optional: Add label tag for field facebook -->
-                    {{ form.facebook }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.facebook.id_for_label }}" class="font-weight-bold">{{ form.facebook.label }}</label>
+                {{ form.facebook }}
+                {{ form.facebook.errors }}
+                <div class="invalid-feedback">
+                    Please provide a valid {{ form.facebook.label }}.
                 </div>
-                <div class="form-group mb-3">
-                    {{ form.twitter.label_tag }}  <!-- Optional: Add label tag for field twitter -->
-                    {{ form.twitter }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.twitter.id_for_label }}" class="font-weight-bold">{{ form.twitter.label }}</label>
+                {{ form.twitter }}
+                {{ form.twitter.errors }}
+                <div class="invalid-feedback">
+                    Please provide a valid {{ form.twitter.label }}.
                 </div>
-                <div class="form-group mb-3">
-                    {{ form.instagram.label_tag }}  <!-- Optional: Add label tag for field instagram -->
-                    {{ form.instagram }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.instagram.id_for_label }}" class="font-weight-bold">{{ form.instagram.label }}</label>
+                {{ form.instagram }}
+                {{ form.instagram.errors }}
+                <div class="invalid-feedback">
+                    Please provide a valid {{ form.instagram.label }}.
                 </div>
-                <div class="form-group mb-3">
-                    {{ form.linkedin.label_tag }}  <!-- Optional: Add label tag for field linkedin -->
-                    {{ form.linkedin }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.linkedin.id_for_label }}" class="font-weight-bold">{{ form.linkedin.label }}</label>
+                {{ form.linkedin }}
+                {{ form.linkedin.errors }}
+                <div class="invalid-feedback">
+                    Please provide a valid {{ form.linkedin.label }}.
                 </div>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                    <a href="{% url 'team_list' %}" class="btn btn-secondary">Cancel</a>
-                </div>
-            </form>
-        </div>
+            </div>
+            <div class="d-flex justify-content-center mt-3">
+                <button type="submit" class="btn btn-success btn-lg">Save Changes</button>
+                <a href="{% url 'team_list' %}" class="btn btn-secondary btn-lg ml-2">Cancel</a>
+            </div>
+        </form>
     </div>
 </div>
 {% endblock %}

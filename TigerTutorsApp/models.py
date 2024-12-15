@@ -1,4 +1,8 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser, Group, Permission
+
 
 
 # Create your models here.
@@ -20,63 +24,42 @@ class Contact(models.Model):
     def __str__(self):
         return self.name
 
-from django.db import models
-from django.contrib.auth.models import AbstractUser
 
+#Member model
 class Member(AbstractUser):
-    phone = models.CharField(max_length=20, blank=True, null=True)
-    address = models.CharField(max_length=255, blank=True, null=True)
-    image = models.ImageField(upload_to='members/', blank=True, null=True)
-
-    def __str__(self):
-        return self.username
-
-
-
-    def __str__(self):
-        return self.username
-
-
     groups = models.ManyToManyField(
-        'auth.Group',
-        related_name='member_set',  # Custom related name
+        Group,
+        related_name='member_groups',  # Ensure this is unique
         blank=True,
         help_text='The groups this user belongs to.',
-        verbose_name='groups',
+        verbose_name='groups'
     )
     user_permissions = models.ManyToManyField(
-        'auth.Permission',
-        related_name='member_permission_set',  # Custom related name
+        Permission,
+        related_name='member_permissions',  # Ensure this is unique
         blank=True,
         help_text='Specific permissions for this user.',
-        verbose_name='user permissions',
+        verbose_name='user permissions'
     )
+
+
+
+#Profile model
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='profile_images', blank=True, default='default.jpg')
+    email = models.EmailField(max_length=100, blank=True)
+    bio = models.TextField(max_length=500, blank=True)
+    location = models.CharField(max_length=30, blank=True)
 
     def __str__(self):
-        return self.username
+        return self.user.username
 
 
 
 
-class Admin(models.Model):
-    name = models.CharField(max_length=50)
-    username =models.CharField(
-        max_length=50,
-        unique=True,
-    )
-    password =models.CharField(
-        max_length=8
-        ,unique=True
-        ,null=False
-        ,blank=False
-        ,default=''
-        ,editable=False
-        ,error_messages={'unique':'Username already exists','wrong':'Wrong password'}
-        ,help_text='Required. 8 characters or fewer. Letters, digits and @/./+/-/_ only.'
-    )
 
-    def __str__(self):
-        return self.username
+
 
 #Subjects Models
 class MathematicsDocument(models.Model):
@@ -108,20 +91,13 @@ class ComputerDocument(models.Model):
     def __str__(self):
         return self.title
 
-#model code for uploading document for analyzing and then generate questions
-class Document(models.Model):
-    file = models.FileField(upload_to='documents/')
-    uploaded_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return self.file.name
-
-
+#Team members model
 class TeamMember(models.Model):
     name = models.CharField(max_length=100)
     role = models.CharField(max_length=100)
     image = models.ImageField(upload_to='team/', blank=True, null=True)
-    twitter = models.URLField(max_length=200, blank=True, null=True)  # 'X' formerly known as 'Twitter'
+    twitter = models.URLField(max_length=200, blank=True, null=True)
     facebook = models.URLField(max_length=200, blank=True, null=True)
     instagram = models.URLField(max_length=200, blank=True, null=True)
     linkedin = models.URLField(max_length=200, blank=True, null=True)

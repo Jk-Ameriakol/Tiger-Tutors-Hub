@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+<div class="container mt-5 mb-5">
+    <h2 class="text-center">Upload Discover Item</h2>
+    <div class="card shadow-lg border-0 w-50 mx-auto">
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                {% csrf_token %}
+                <div class="form-group mb-3">
+                    <label for="{{ form.title.id_for_label }}" class="font-weight-bold">{{ form.title.label }}</label>
+                    {{ form.title }}
+                    {{ form.title.errors }}
+                    <div class="invalid-feedback">
+                        Please provide a valid {{ form.title.label }}.
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="{{ form.description.id_for_label }}" class="font-weight-bold">{{ form.description.label }}</label>
+                    {{ form.description }}
+                    {{ form.description.errors }}
+                    <div class="invalid-feedback">
+                        Please provide a valid {{ form.description.label }}.
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="{{ form.image.id_for_label }}" class="font-weight-bold">{{ form.image.label }}</label>
+                    {{ form.image }}
+                    {{ form.image.errors }}
+                    <div class="invalid-feedback">
+                        Please provide a valid {{ form.image.label }}.
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center mt-3">
+                    <button type="submit" class="btn btn-success btn-lg">Upload</button>
+                    <a href="{% url 'discover_list' %}" class="btn btn-secondary btn-lg ml-2">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    body, html {
+        height: 100%;
+    }
+    .container {
+        min-height: calc(100vh - 100px); /* Adjust as needed based on your footer height */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .card {
+        max-width: 75%;
+    }
+</style>
+{% endblock %}

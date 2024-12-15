@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TigerHub Admin - Welcome</title>
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: grey;
+        }
+        .container {
+            text-align: center;
+        }
+        .card {
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            max-width: 100%;
+        }
+        .btn-primary {
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container w-100">
+        <div class="card shadow-lg border-0">
+            <h1 class="mb-4">Welcome to TigerHub Admin Portal</h1>
+            <p class="lead mb-4">Manage users, documents, and all other administrative tasks from here.</p>
+            <a href="{% url 'login' %}" class="btn btn-primary btn-lg">Admin Login</a>
+        </div>
+    </div>
+    <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

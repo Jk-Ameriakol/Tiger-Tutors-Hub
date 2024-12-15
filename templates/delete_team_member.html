@@ -1,20 +1,21 @@
-{% extends 'starter-page.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block body %}
-<div class="container mt-5">
-    <div class="card">
-        <div class="card-header text-white text-center" style="background-color: grey;">
-            <h2>Delete Team Member</h2>
+<div class="container-fluid mt-5 mb-5 d-flex justify-content-center">
+    <div class="card shadow-lg border-0 h-100">
+        <div class=" mt-lg-0 mb-2 d-flex justify-content-center w-100" style="background-color: gray">
+            <h2 class="text-white mt-md-4 mt-lg-4 mb-4">Delete Team Member</h2>
         </div>
-        <div class="card-body">
-            <p class="text-center">Are you sure you want to delete this team member?</p>
-            <form method="post" class="text-center">
+        <div class="card-body text-center">
+            <p>Are you sure you want to delete <strong>{{ team_member.name }}</strong>?</p>
+            <form method="post">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-danger me-2">Confirm Delete</button>
-                <a href="{% url 'team_upload' %}" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-danger">Delete</button>
+                <a href="{% url 'team_list' %}" class="btn btn-secondary">Cancel</a>
             </form>
         </div>
     </div>
 </div>
+    <br>
 {% endblock %}

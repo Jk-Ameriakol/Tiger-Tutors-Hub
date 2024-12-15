@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+<div class="container mt-5 mb-5">
+    <h2 class="text-center mb-4">Register New User</h2>
+    <div class="card shadow-lg border-0 w-50 mx-auto w-100 h-100">
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                {% csrf_token %}
+                {% for field in user_form %}
+                    <div class="form-group mb-3">
+                        <label for="{{ field.id_for_label }}" class="font-weight-bold">{{ field.label }}</label>
+                        {{ field }}
+                        {{ field.errors }}
+                        <div class="invalid-feedback">
+                            Please provide a valid {{ field.label }}.
+                        </div>
+                    </div>
+                {% endfor %}
+                {% for field in profile_form %}
+                    <div class="form-group mb-3">
+                        <label for="{{ field.id_for_label }}" class="font-weight-bold">{{ field.label }}</label>
+                        {{ field }}
+                        {{ field.errors }}
+                        <div class="invalid-feedback">
+                            Please provide a valid {{ field.label }}.
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="d-flex justify-content-center mt-4">
+                    <button type="submit" class="btn btn-success btn-lg">Register</button>
+                    <a href="{% url 'user_list' %}" class="btn btn-secondary btn-lg ml-2">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-group label {
+        font-weight: bold;
+    }
+    .form-group .form-control, .form-group .form-control-file {
+        margin-top: 5px;
+    }
+    .text-danger {
+        margin-top: 5px;
+        font-size: 0.875em;
+    }
+    .card {
+        max-width: 50%;
+    }
+</style>
+{% endblock %}

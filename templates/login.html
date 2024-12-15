@@ -16,7 +16,7 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -28,6 +28,48 @@
 
   <!-- Main CSS File -->
   <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+  
+  <style>
+    body.starter-page-page {
+      background-color: #f8f9fa;
+    }
+    .dark-background {
+      background-color: #343a40;
+    }
+    .card {
+      border-radius: 1rem;
+    }
+    .form-outline {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+    .form-outline label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #495057;
+      font-weight: bold;
+    }
+    .form-outline .form-control {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ced4da;
+      border-radius: 0.25rem;
+    }
+    .btn-lg {
+      background-color: #ff7f00;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.25rem;
+      font-size: 1.25rem;
+      border-radius: 0.25rem;
+    }
+    .btn-lg:hover {
+      background-color: #e66b00;
+    }
+    .card-body {
+      padding: 2rem;
+    }
+  </style>
 </head>
 
 <body class="starter-page-page">
@@ -35,32 +77,26 @@
     <div class="container h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-lg-12 col-xl-11">
-          <div class="card text-black" style="border-radius: 25px;">
+          <div class="card text-black">
             <div class="card-body p-md-3">
               <div class="row justify-content-center">
                 <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
                   <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Login to your account</p>
                   <form class="mx-1 mx-md-4" method="POST" action="{% url 'login' %}">
                       {% csrf_token %}
-                    <div class="d-flex flex-row align-items-center mb-4">
-                      <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                      <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                        {{ form.username.label_tag }}
-                        {{ form.username }}
-                      </div>
+                    <div class="form-outline flex-fill mb-3 form-control">
+                      <label for="id_username">Username</label>
+                      {{ form.username }}
                     </div>
-                    <div class="d-flex flex-row align-items-center mb-4">
-                      <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
-                      <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                        {{ form.password.label_tag }}
-                        {{ form.password }}
-                      </div>
+                    <div class="form-outline flex-fill mb-3 form-control">
+                      <label for="id_password">Password</label>
+                      {{ form.password }}
                     </div>
                     <div class="form-check d-flex justify-content-end mx-4 mb-3 mb-lg-4 mb-5">
                         <a href="#" class="m-1">Lost password?</a>
                     </div>
                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                      <button  type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-lg" style="background-color: orange">Login</button>
+                      <button type="submit" class="btn btn-lg" data-mdb-button-init data-mdb-ripple-init>Login</button>
                     </div>
                     <p class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">You don't have an account?&nbsp;<a href="{% url 'register' %}">Register</a></p>
                   </form>

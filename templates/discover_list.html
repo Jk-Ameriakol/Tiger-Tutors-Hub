@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+<div class="container mt-5 mb-5">
+    <h1 class="text-center">Discover List</h1>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>Uploaded At</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for discover in discovers %}
+            <tr>
+                <td>{{ discover.title }}</td>
+                <td>{{ discover.description }}</td>
+                <td><img src="{{ discover.image.url }}" alt="{{ discover.title }}" style="width: 100px;"></td>
+                <td>{{ discover.uploaded_at }}</td>
+                <td>
+                    <a href="{% url 'discover_detail' discover.pk %}" class="btn btn-info btn-sm">View</a>
+                    <a href="{% url 'edit_discover' discover.pk %}" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="{% url 'delete_discover' discover.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+     <div class="d-flex justify-content-center mt-3">
+          <a href="{% url 'discover_upload' %}">
+          <button class="btn btn-outline-primary btn-lg">Upload New</button>
+          </a>
+     </div>
+{% endblock %}

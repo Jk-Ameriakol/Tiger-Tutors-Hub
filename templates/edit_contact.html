@@ -1,39 +1,26 @@
-{% extends 'starter-page.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block body %}
-<div class="container mt-5">
-    <h2 class="text-center text-uppercase" style="color: #4CAF50;">Edit Contact</h2>
-    <div class="row">
-        <div class="col-md-8 offset-md-2">
-            <div class="card shadow-lg">
-                <div class="card-body">
-                    <form method="post" class="needs-validation" novalidate>
-                        {% csrf_token %}
-                        
-                        <!-- Dynamically generate form fields -->
-                        {% for field in form %}
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="{{ field.id_for_label }}" class="font-weight-bold" style="color: #4CAF50;">{{ field.label }}</label>
-                                    {{ field }}
-                                    <div class="invalid-feedback">
-                                        Please provide a valid {{ field.label }}.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                        
-                        <div class="d-flex justify-content-center mt-3">
-                            <button type="submit" class="btn btn-success btn-lg">Save Changes</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+<div class="container-fluid mt-5 mb-5">
+    <h2 class="text-center">Edit Contact</h2>
+    <div class="card-body">
+         <form method="post" class="needs-validation" novalidate>
+          {% csrf_token %}
+          {% for field in form %}
+            <div class="form-group">
+               <label for="{{ field.id_for_label }}" class="font-weight-bold">{{ field.label }}</label>
+                  {{ field }}
+                  {{ field.errors }}
+               <div class="invalid-feedback">
+               Please provide a valid {{ field.label }}.
+               </div>
+               </div>
+          {% endfor %}
+             <div class="d-flex justify-content-center mt-3">
+               <button type="submit" class="btn btn-success btn-lg">Save Changes</button>
+             </div>
+         </form>
     </div>
 </div>
-<br><br>
 {% endblock %}

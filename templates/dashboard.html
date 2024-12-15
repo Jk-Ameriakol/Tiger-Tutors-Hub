@@ -1,178 +1,283 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Admin Dashboard - TigerTutorsHub</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    
     <style>
         body {
-            background-color: #f9f9f9; /* Light background */
-            color: #343a40; /* Dark text */
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+            
         }
-        .navbar {
-            background-color: #007bff; /* Blue background */
-        }
-        .navbar-brand, .navbar-nav .nav-link {
+        .header, .footer {
+            background-color: #343a40;
             color: #ffffff;
+            padding: 5px;
+            text-align: center;
         }
-        .navbar-nav .nav-link:hover {
-            color: #dcdcdc;
+        .sidebar {
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            background-color: #343a40;
+            padding-top: 20px;
         }
-        .card {
-            margin-bottom: 20px;
-            border: none;
-            background-color: #ffffff; /* White card background */
-        }
-        .card-header {
-            background-color: #007bff; /* Blue card header */
-            color: #ffffff; /* White text for header */
-        }
-        .section-title {
-            color: #007bff; /* Blue section titles */
-            margin-top: 20px;
-            text-transform: uppercase;
-        }
-        .btn-custom {
-            background-color: #007bff; /* Blue button */
-            color: #ffffff;
-        }
-        .btn-custom:hover {
-            background-color: #0056b3; /* Darker blue on hover */
-            color: #ffffff;
-        }
-        .btn-outline-dark a,
-        .btn-outline-primary a {
+        .sidebar a {
+            padding: 15px;
             text-decoration: none;
-            color: inherit;
+            font-size: 18px;
+            color: #ffffff;
+            display: block;
+            transition: background-color 0.3s;
         }
-        .btn-outline-dark:hover,
-        .btn-outline-primary:hover {
-            background-color: #007bff; /* Blue background on hover */
-            color: white;
+        .sidebar a:hover {
+            background-color: #575757;
         }
-        .btn-outline-dark:hover a,
-        .btn-outline-primary:hover a {
-            color: white;
+        .main-content {
+            margin-left: 260px;
+            padding: 20px;
+            background-color: #ffffff;
         }
-        .card-icon {
-            font-size: 3rem;
-            color: #007bff; /* Blue icons */
-        }
-        .card-summary {
+        .profile-card {
             display: flex;
             align-items: center;
-        }
-        .card-summary-text {
-            margin-left: 20px;
-        }
-        .text-center {
-            margin-bottom: 40px; /* Add space below title */
-        }
-        .fixed-size-card {
-            height: 150px;
-        }
-        .feature-section {
-            background-color: #ffffff;
+            margin-bottom: 2px;
             padding: 20px;
-            margin-top: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+            width: calc(100% - 260px);
+            top: 1px;
+            z-index: 10;
+        }
+        .profile-card img {
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            margin-right: 20px;
+            align-content: flex-end;
+        }
+        .profile-card div {
+            display: flex;
+            flex-direction: column;
+        }
+        .profile-card h4, .profile-card p {
+            margin: 0;
+        }
+        .cards-container {
+            margin-top: 10px;
+        }
+        .card {
+            width: calc(100% / 5 - 20px);
+            height: 120px;
+            flex: 1;
+            padding: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .card-icon {
+            font-size: 2.5rem;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        .card-title {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+        .card-text {
+            font-size: 0.9rem;
+        }
+        .footer {
+            background-color: #343a40;
+            color: #ffffff;
+            padding: 15px 0;
+        }
+        .footer span {
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="#">Admin Dashboard</a>
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav ml-auto">
+
+    <!-- Header -->
+    <header class="header d-flex align-items-center">
+        <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+            <a href="{% url 'admin_dashboard' %}" class="logo d-flex align-items-center">
+                <h1 class="sitename text-white">TigerHub-Admin</h1>
+            </a>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="position-sticky">
+            <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'contact_list' %}">Contacts</a>
+                    <a class="nav-link active" href="{% url 'admin_dashboard' %}">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'team_list' %}">Team Members</a>
+                    <a class="nav-link" href="{% url 'contact_list' %}">
+                        <i class="fas fa-address-book"></i> Contacts
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'subject_documents' %}">Documents</a>
+                    <a class="nav-link" href="{% url 'team_list' %}">
+                        <i class="fas fa-users"></i> Team Members
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'landing' %}">Discover</a>
+                    <a class="nav-link" href="{% url 'admin_document_list' %}">
+                        <i class="fas fa-file-alt"></i> Documents
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'discover_list' %}">
+                        <i class="fas fa-search"></i> Discover
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'user_list' %}">
+                        <i class="fas fa-user"></i> Users
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#charts">
+                        <i class="fas fa-chart-bar"></i> Charts
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#statistics">
+                        <i class="fas fa-chart-line"></i> Statistics
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#insights">
+                        <i class="fas fa-chart-pie"></i> Insights
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#logout">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
                 </li>
             </ul>
         </div>
     </nav>
 
-    <div class="container mt-5">
-        <h1 class="text-center text-uppercase">Admin Dashboard</h1>
+    <!-- Main Content -->
+    <main class="main-content">
+        <div id="dashboard">
+            <div class="profile-card d-flex w-100 mt-4">
+                <img src="{{ admin_image }}" alt="Admin Profile">
+                <div class="justify-content-end">
+                    <h4> Hi,<strong>{{ admin_name }}</strong></h4>
+                    <p>{{ admin_role }}</p>
+                </div>
+            </div>
+            <div class="cards-container">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="card" style="width:200px; height:150px">
+                            <div class="card-body">
+                                <a href="{% url 'contact_list' %}">
+                                  <i class="fas fa-address-book card-icon"></i> 
+                                </a>
+                                 <h5 class="card-title">Contacts</h5>
+                                <p class="card-text">{{ contact_count }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="card" style="width:200px; height:150px">
+                            <div class="card-body">
+                                <a href="{% url 'team_list' %}">
+                                    <i class="fas fa-users card-icon"></i>
+                                </a>
+                                <h5 class="card-title">Team Members</h5>
+                                <p class="card-text">{{ team_member_count }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="card" style="width:200px; height:150px">
+                            <div class="card-body">
+                                <a href="{% url 'admin_document_list' %}">
+                                    <i class="fas fa-file-alt card-icon"></i>
+                                </a>
+                                <h5 class="card-title">Documents</h5>
+                                <p class="card-text">{{ document_count }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="card" style="width:200px; height:150px">
+                            <div class="card-body">
+                                <a href="{% url 'discover_list' %}">
+                                    <i class="fas fa-search card-icon"></i>
+                                </a>
+                                <h5 class="card-title">Discover</h5>
+                                <p class="card-text">{{ discover_count }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="card" style="width:200px; height:150px">
+                            <div class="card-body ">
+                                <a href="{% url 'user_list' %}">
+                                    <i class="fas fa-user card-icon"></i>
+                                </a>
+                                <div>
+                                    <h5 class="card-title">Users</h5>
+                                    <p class="card-text">{{ user_count }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        <!-- Dashboard Summary -->
-        <div class="row">
-            <div class="col-md-3">
-                <div class="card shadow-lg fixed-size-card">
-                    <div class="card-body card-summary">
-                        <i class="fas fa-address-book card-icon"></i>
-                        <div class="card-summary-text">
-                            <h5>Contacts</h5>
-                            <p>Manage contacts</p>
-                        </div>
+                
+                </div>   
+                    <div class="card mt-4 w-100 h-100">
+                       <div class="card-body w-75">
+                          <h5 class="card-title">Counts Insights</h5>
+                          <img src="data:image/png;base64,{{ graph }}" alt="Graph of Counts" class="img-fluid">
+                       </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card shadow-lg fixed-size-card">
-                    <div class="card-body card-summary">
-                        <i class="fas fa-users card-icon"></i>
-                        <div class="card-summary-text">
-                            <h5>Team Members</h5>
-                            <p>Manage team members</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card shadow-lg fixed-size-card">
-                    <div class="card-body card-summary">
-                        <i class="fas fa-file-alt card-icon"></i>
-                        <div class="card-summary-text">
-                            <h5>Documents</h5>
-                            <p>Manage documents</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card shadow-lg fixed-size-card">
-                    <div class="card-body card-summary">
-                        <i class="fas fa-compass card-icon"></i>
-                        <div class="card-summary-text">
-                            <h5>Discover</h5>
-                            <p>Manage discover items</p>
-                        </div>
-                    </div>
+            
                 </div>
             </div>
         </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer text-center py-3">
+        <div class="container">
+            <span class="text-muted">TigerHub © 2024. All Rights Reserved.</span>
+        </div>
+    </footer>
 
-        <!-- Contacts Section -->
-        <div class="section-title">
-            <h2>Contacts</h2>
-        </div>
-        <div class="card shadow-lg">
-            <div class="card-header d-flex justify-content-between">
-                <button class="btn btn-custom"><a href="{% url 'contact' %}" class="text-white">Upload Contact</a></button>
-                <button class="btn btn-outline-primary"><a href="{% url 'contact_list' %}" class="text-primary">View Contacts</a></button>
-            </div>
-        </div>
-
-        <!-- Team Section -->
-        <div class="section-title">
-            <h2>Team Members</h2>
-        </div>
-        <div class="card shadow-lg">
-            <div class="card-header d-flex justify-content-between">
-                <button class="btn btn-custom"><a href="{% url 'team_upload' %}" class="text-white">Upload Team Member</a></button>
-                <button class="btn btn-outline-primary"><a href="{% url 'contact_list' %}" class="text-primary">View Contacts</a></button>
-            </div>
-        </div>
-    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

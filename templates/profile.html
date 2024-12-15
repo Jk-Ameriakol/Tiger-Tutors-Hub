@@ -1,33 +1,33 @@
 {% extends 'starter-page.html' %}
 {% load static %}
-
 {% block body %}
 <div class="container mt-5">
-    <h2 class="text-center text-uppercase" style="color: #4CAF50;">My Profile</h2>
-    <div class="card shadow-lg">
-        <div class="card-body text-center">
-            <div class="member-img mb-4">
-                {% if member.image %}
-                    <img src="{{ member.image.url }}" class="img-fluid rounded-circle border border-success" style="width: 120px; height: 120px;" alt="Profile Image">
-                {% else %}
-                    <p class="text-muted">No profile image uploaded.</p>
-                {% endif %}
-            </div>
-            <div class="card-body text-left">
-                <h5 class="card-title font-weight-bold">{{ member.username }}</h5>
-                <hr>
-                <p class="card-text"><strong>Email:</strong> {{ member.email }}</p>
-                <p class="card-text"><strong>First Name:</strong> {{ member.first_name }}</p>
-                <p class="card-text"><strong>Last Name:</strong> {{ member.last_name }}</p>
-                <p class="card-text"><strong>Phone:</strong> {{ member.phone }}</p>
-                <p class="card-text"><strong>Address:</strong> {{ member.address }}</p>
-                <a href="{% url 'edit_profile' %}" class="btn btn-success mt-3">Edit Profile</a>
-            </div>
-            <div class="mt-4">
-                <p><a href="{% url 'landing' %}" class="btn btn-danger">Log Out</a></p>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+                <div class="text-center">
+                    <h1 class="mb-0">My Profile</h1>
+                </div>
+            <div class="card shadow">
+                
+                <div class="card-body text-center bg-light">
+                    {% if profile.image %}
+                        <img src="{{ profile.image.url }}" alt="{{ user.username }}'s profile image" class="rounded-circle mx-auto d-block profile-image shadow mb-3" style="width: 120px">
+                    {% else %}
+                        <img src="{% static 'assets/img/logo.png' %}" alt="Default profile image" class="rounded-circle mx-auto d-block profile-image shadow mb-3" style="width: 120px">
+                    {% endif %}
+                    <h3 class="display-4">{{ user.username }}</h3>
+                    <hr>
+                    <div class="mt-4">
+                        <p class="lead"><strong>Email:</strong> {{ profile.email }}</p>
+                        <p class="lead"><strong>Bio:</strong> {{ profile.bio }}</p>
+                        <p class="lead"><strong>Location:</strong> {{ profile.location }}</p>
+                        <a href="{% url 'profile_update' %}" class="btn btn-primary mt-3">Edit Profile</a><br>
+                        <a href="{% url 'landing' %}" class="btn btn-danger mt-3">Log Out</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<br><br>
+<br>
 {% endblock %}

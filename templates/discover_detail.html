@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+<div class="container mt-5 mb-5">
+    <div class="card shadow-lg border-0 w-100">
+        <div class="card-body w-100">
+            <h1 class="text-center mb-4">{{ discover.title }}</h1>
+            <img src="{{ discover.image.url }}" alt="{{ discover.title }}" class="img-fluid mx-auto d-block mb-4" style="max-width: 75%; height: auto; border-radius: 10px;">
+            <p class="lead text-center">{{ discover.description }}</p>
+            <p class="text-center text-muted">Uploaded at: {{ discover.uploaded_at }}</p>
+            <div class="d-flex justify-content-center mt-4">
+                <a href="{% url 'edit_discover' discover.pk %}" class="btn btn-warning btn-lg mx-2">Edit</a>
+                <a href="{% url 'delete_discover' discover.pk %}" class="btn btn-danger btn-lg mx-2">Delete</a>
+                <a href="{% url 'discover_list' %}" class="btn btn-secondary btn-lg mx-2">Back</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body, html {
+        height: 100%;
+    }
+    .container {
+        width: 100%;
+        min-height: calc(100vh - 1000px); /* Adjust as needed based on your footer height */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .card-body {
+        flex: 1 0 auto;
+    }
+</style>
+{% endblock %}

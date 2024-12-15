@@ -1,78 +1,34 @@
 {% extends 'starter-page.html' %}
 {% load static %}
-
 {% block body %}
 <div class="container mt-5">
-    <h2 class="text-center text-uppercase" style="color: #4CAF50;">Edit Profile</h2>
-    <div class="row">
-        <div class="col-md-8 offset-md-2">
-            <div class="card shadow-lg">
-                <div class="card-body">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="text-center">
+                    <h2 class="mb-o">Update Profile</h2>
+                </div>
+                <div class="card-body bg-light">
                     <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
-                        
-                        <!-- Image Field -->
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="{{ form.image.id_for_label }}" class="font-weight-bold" style="color: #4CAF50;">{{ form.image.label }}</label>
-                                    {{ form.image }}
-                                </div>
-                            </div>
+                        <div class="form-group">
+                            <label for="id_image" class="form-label">Profile Image</label>
+                            <input type="file" name="image" class="form-control" id="id_image">
                         </div>
-                        
-                        <!-- First Name Field -->
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="{{ form.first_name.id_for_label }}" class="font-weight-bold" style="color: #4CAF50;">{{ form.first_name.label }}</label>
-                                    <input type="text" name="{{ form.first_name.name }}" id="{{ form.first_name.id_for_label }}" class="form-control" value="{{ form.first_name.value|default_if_none:'' }}">
-                                </div>
-                            </div>
+                        <div class="form-group">
+                            <label for="id_email" class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control" id="id_email" value="{{ profile_form.email.value }}">
                         </div>
-                        
-                        <!-- Last Name Field -->
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="{{ form.last_name.id_for_label }}" class="font-weight-bold" style="color: #4CAF50;">{{ form.last_name.label }}</label>
-                                    <input type="text" name="{{ form.last_name.name }}" id="{{ form.last_name.id_for_label }}" class="form-control" value="{{ form.last_name.value|default_if_none:'' }}">
-                                </div>
-                            </div>
+                        <div class="form-group">
+                            <label for="id_bio" class="form-label">Bio</label>
+                            <textarea name="bio" class="form-control" id="id_bio">{{ profile_form.bio.value }}</textarea>
                         </div>
-                        
-                        <!-- Email Field -->
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="{{ form.email.id_for_label }}" class="font-weight-bold" style="color: #4CAF50;">{{ form.email.label }}</label>
-                                    <input type="email" name="{{ form.email.name }}" id="{{ form.email.id_for_label }}" class="form-control" value="{{ form.email.value|default_if_none:'' }}">
-                                </div>
-                            </div>
+                        <div class="form-group">
+                            <label for="id_location" class="form-label">Location</label>
+                            <input type="text" name="location" class="form-control" id="id_location" value="{{ profile_form.location.value }}">
                         </div>
-                        
-                        <!-- Phone Field -->
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="{{ form.phone.id_for_label }}" class="font-weight-bold" style="color: #4CAF50;">{{ form.phone.label }}</label>
-                                    <input type="text" name="{{ form.phone.name }}" id="{{ form.phone.id_for_label }}" class="form-control" value="{{ form.phone.value|default_if_none:'' }}">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Address Field -->
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="{{ form.address.id_for_label }}" class="font-weight-bold" style="color: #4CAF50;">{{ form.address.label }}</label>
-                                    <input type="text" name="{{ form.address.name }}" id="{{ form.address.id_for_label }}" class="form-control" value="{{ form.address.value|default_if_none:'' }}">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="d-flex justify-content-center mt-3">
-                            <button type="submit" class="btn btn-success btn-lg">Save Changes</button>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success mt-3">Save changes</button>
                         </div>
                     </form>
                 </div>
@@ -80,5 +36,5 @@
         </div>
     </div>
 </div>
-<br><br>
+<br>
 {% endblock %}

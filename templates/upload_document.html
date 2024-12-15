@@ -1,18 +1,50 @@
-{% extends 'starter-page.html' %}
+{% extends 'base.html' %}
 {% load static %}
+
 {% block body %}
-	
-    
-<body>
-    <div class="container mt-5">
-        <h2>Upload Document</h2>
-        <form method="POST" enctype="multipart/form-data" action="{% url 'upload_document' %}">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Upload</button>
-        </form>
+<div class="container mt-5 mb-5">
+    <h2 class="text-center mb-4">Upload Document</h2>
+    <div class="card shadow-lg border-0 w-50 mx-auto">
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="form-group mb-3">
+                        <label for="{{ field.id_for_label }}" class="font-weight-bold">{{ field.label }}</label>
+                        {{ field }}
+                        {{ field.errors }}
+                        <div class="invalid-feedback">
+                            Please provide a valid {{ field.label }}.
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="d-flex justify-content-center mt-4">
+                    <button type="submit" class="btn btn-success btn-lg">Upload</button>
+                    <a href="{% url 'admin_document_list' %}" class="btn btn-secondary btn-lg ml-2">Cancel</a>
+                </div>
+            </form>
+        </div>
     </div>
+</div>
 
-</body>
-
+<style>
+    body, html {
+        height: 100%;
+    }
+    .container {
+        min-height: calc(100vh - 100px); /* Adjust as needed based on your footer height */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .card {
+        max-width: 50%;
+    }
+    .form-group label {
+        font-weight: bold;
+    }
+    .form-group .form-control, .form-group .form-control-file {
+        margin-top: 5px;
+    }
+</style>
 {% endblock %}
